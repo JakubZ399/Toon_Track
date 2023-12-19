@@ -14,6 +14,14 @@ class TOONTANKS_API ATank : public ABasePawn
 {
 	GENERATED_BODY()
 
+public:	
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
 public:
 	ATank();
 
@@ -36,4 +44,6 @@ private:
 	void Move(float Value);
 
 	void Rotate(float Value);
+
+	APlayerController* PlayerControllerRef;
 };

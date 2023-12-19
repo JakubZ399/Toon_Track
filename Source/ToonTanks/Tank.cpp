@@ -16,6 +16,40 @@ ATank::ATank()
 	CameraComp->SetupAttachment(SpringArmComp);
 }
 
+// Called when the game starts or when spawned
+void ATank::BeginPlay()
+{
+	Super::BeginPlay();
+
+	PlayerControllerRef = Cast<APlayerController>(GetController());
+	
+}
+
+// Called every frame
+void ATank::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	FHitResult HitResult;
+	if (PlayerControllerRef)
+	{
+		PlayerControllerRef->GetHitResultUnderCursor(ECC_Visibility, false, HitResult);
+
+		DrawDebugSphere(
+			GetWorld(),
+			HitResult.ImpactPoint,
+			20.f,
+			12,
+			FColor::Red,
+			false,
+			-1.f
+			);
+
+		ABasePawn::RotateTurret(HitResult.ImpactPoint);
+	}
+
+}
+
 void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
