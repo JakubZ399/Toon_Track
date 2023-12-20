@@ -17,5 +17,22 @@ class TOONTANKS_API ATower : public ABasePawn
 public:
 
 	virtual void Tick(float DeltaTime) override;
+
+protected:
+
+	virtual void BeginPlay() override;
+
+private:
+
+	class ATank* Tank;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Stats")
+	float FireRange = 700.f;
+
+	FTimerHandle FireRateTimerHandle;
+	float FireRateTimer = 2.f;
+	void CheckFireRateTimer();
+
+	bool InFireRange();
 	
 };
